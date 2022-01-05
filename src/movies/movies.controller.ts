@@ -8,13 +8,16 @@ import {
   Body,
   Query,
 } from '@nestjs/common';
+import { MoviesService } from './movies.service';
+import { Movie } from './entities/Movie.entity';
 
 @Controller('movies')
 export class MoviesController {
+  constructor(private readonly moviesService: MoviesService) {}
   // http://localhost:3000/movies
   @Get()
-  getAll() {
-    return 'This will return all movies';
+  getAll(): Movie[] {
+    return this.moviesService.getAll();
   }
 
   // http://localhost:3000/movies/search?year=2000
@@ -26,20 +29,19 @@ export class MoviesController {
 
   // http://localhost:3000/movies/1
   @Get(':id')
-  getOne(@Param('id') movieId: string) {
+  getOne(@Param('id') movieId: string): Movie {
     // @Get의 id 네이밍과 와 @Param의 id 네이밍은 같아야함, movieId 부분은 달라도 됨
-    return `This will return one movie with the id ${movieId}`;
+    return this.moviesService.getOne(movieId);
   }
 
   @Post()
   create(@Body() movieData) {
-    // console.log(movieData);
-    return movieData;
+    return this.moviesService.create(movieData);
   }
 
   @Delete('/:id')
   remove(@Param('id') movieId: string) {
-    return `This will delete a movie with the id ${movieId}`;
+    return this.moviesService.deleteOne(movieId);
   }
 
   // Patch는 리소스의 일부분만, Put은 하면 모든 리소스 업데이트
