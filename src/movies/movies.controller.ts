@@ -47,9 +47,6 @@ export class MoviesController {
   // Patch는 리소스의 일부분만, Put은 하면 모든 리소스 업데이트
   @Patch('/:id')
   patch(@Param('id') movieId: string, @Body() updateData) {
-    return {
-      updatedMovie: movieId,
-      ...updateData,
-    };
+    return this.moviesService.update(movieId, updateData);
   }
 }
