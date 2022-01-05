@@ -1,4 +1,5 @@
 import { Injectable, NotFoundException } from '@nestjs/common';
+import { CreateMovieDto } from './dto/create-movie.dto';
 import { Movie } from './entities/Movie.entity';
 
 @Injectable()
@@ -9,27 +10,28 @@ export class MoviesService {
     return this.movies;
   }
 
-  getOne(id: string): Movie {
-    const movie = this.movies.find(movie => movie.id === +id);
+  getOne(id: number): Movie {
+    // const movie = this.movies.find(movie => movie.id === +id); // string으로 받아와서 Number로 바꿈(url로 보낸 값(id)은 뭐든 일단 string이기 떄문에/+string)
+    const movie = this.movies.find(movie => movie.id === id); // 위 처럼 안하고 validattionPipe>transform: true로 하고, 컨트롤러와 서비스에서 id를 number로 받는게 더 good.
     if (!movie) {
       throw new NotFoundException(`Movie with ID ${id} not found.`);
     }
     return movie;
   }
 
-  deleteOne(id: string) {
+  deleteOne(id: number) {
     this.getOne(id);
     this.movies = this.movies.filter(movie => movie.id !== +id);
   }
 
-  create(movieData) {
+  create(movieData: CreateMovieDto) {
     this.movies.push({
       id: this.movies.length + 1,
       ...movieData,
     });
   }
 
-  update(id: string, updateData) {
+  update(id: number, updateData) {
     const movie = this.getOne(id);
     this.deleteOne(id);
     this.movies.push({ ...movie, ...updateData });
