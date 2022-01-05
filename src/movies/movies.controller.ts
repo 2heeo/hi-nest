@@ -7,6 +7,8 @@ import {
   Post,
   Body,
   Query,
+  Req,
+  Res,
 } from '@nestjs/common';
 import { MoviesService } from './movies.service';
 import { Movie } from './entities/Movie.entity';
@@ -21,6 +23,13 @@ export class MoviesController {
   getAll(): Movie[] {
     return this.moviesService.getAll();
   }
+
+  // 밑은 비추
+  // @Get()
+  // getAll(@Req() req, @Res() res): Movie[] {
+  //   res.json();
+  //   return this.moviesService.getAll();
+  // }
 
   // http://localhost:3000/movies/search?year=2000
   // search가 밑의 getOne 보다 밑에 있으면 NestJssms search를 /:id로 판단하기 떄문에 위로 올려줘야함
