@@ -83,4 +83,26 @@ describe('MoviesService', () => {
       expect(afterCreate).toBeGreaterThan(beforeCreate);
     });
   });
+
+  describe('update', () => {
+    it('should update a movie', () => {
+      // 매번 테스트마다 똑같은 create가 귀찮으면 코드 상단 beforeEach 안에서 해도 됨
+      // beforeEach 말고도 beforeAll, afterAll 같은 다른 hook들도 있으니 필요에 따라 찾아서 사용하면됨
+      service.create({
+        title: 'Test Movie',
+        genres: ['test'],
+        year: 2000,
+      });
+      service.update(1, { title: 'updated Test' });
+      const movie = service.getOne(1);
+      expect(movie.title).toEqual('updated Test');
+    });
+    it('should throw a NotFoundException', () => {
+      try {
+        service.update(999, {});
+      } catch (e) {
+        expect(e).toBeInstanceOf(NotFoundException);
+      }
+    });
+  });
 });
