@@ -7,8 +7,6 @@ import {
   Post,
   Body,
   Query,
-  Req,
-  Res,
 } from '@nestjs/common';
 import { MoviesService } from './movies.service';
 import { Movie } from './entities/Movie.entity';
