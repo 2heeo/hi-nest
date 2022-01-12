@@ -5,6 +5,6 @@
   "username": "root",
   "password": "1234",
   "database": "hi_nest",
-  "entities": ["src/**/*.entity{.ts,.js}"],
+  "entities": ["dist/**/*.entity{.ts,.js}"],
   "synchronize": true
 }
