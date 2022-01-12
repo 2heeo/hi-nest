@@ -3,8 +3,8 @@
   "host": "localhost",
   "port": 3306,
   "username": "root",
-  "password": "root",
-  "database": "my_nestjs_project",
-  "entities": ["src/**/**.entity{.ts,.js}"],
+  "password": "1234",
+  "database": "hi_nest",
+  "entities": ["src/**/*.entity{.ts,.js}"],
   "synchronize": true
 }
